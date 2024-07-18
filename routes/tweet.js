@@ -16,8 +16,7 @@ router.post("/", (req, res) => {
                 user: data._id
             })
             newTweet.save()
-
-          res.json({ result: true, data });
+          res.json({ result: true, newTweet });
         } else {
           res.json({ result: false, error: 'User not found' });
         }
