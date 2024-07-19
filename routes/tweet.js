@@ -24,14 +24,16 @@ router.post("/", (req, res) => {
 });
 
 router.get("/alltweet", (req, res) => {
-  Tweet.find().then((data) => {
-    console.log(data);
-    if (data) {
-      res.json({ result: true, tweets: data });
-    } else {
-      res.json({ result: false, error: "No tweet found" });
-    }
-  });
+  Tweet.find()
+    .populate("user")
+    .then((data) => {
+      console.log(data);
+      if (data) {
+        res.json({ result: true, tweets: data });
+      } else {
+        res.json({ result: false, error: "No tweet found" });
+      }
+    });
 });
 
 module.exports = router;
