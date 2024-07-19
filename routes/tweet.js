@@ -21,23 +21,17 @@ router.post("/", (req, res) => {
       res.json({ result: false, error: "User not found" });
     }
   });
-  // recup l'orbject du user grâce au token
-  // Utiliser les informations (_id) de l'user pour mettre dans tweet
+});
 
-  //   if (!checkBody(req.body, ["firstname", "username", "nblike"])) {
-  //     res.json({ result: true });
-  //     return;
-  //     }
-  //     const newTweet = new Tweet({
-  //         firstname: req.body.firstname,
-  //         username: req.body.username,
-  //         content: req.body.content,
-  //         nblike: 0,
-  //         })
-  //             newTweet.save().then((newDoc) => {
-  //                 res.json({ result: true, token: newDoc.token });
-
-  //             });
+router.get("/alltweet", (req, res) => {
+  Tweet.find().then((data) => {
+    console.log(data);
+    if (data) {
+      res.json({ result: true, tweets: data });
+    } else {
+      res.json({ result: false, error: "No tweet found" });
+    }
+  });
 });
 
 module.exports = router;
