@@ -8,40 +8,36 @@ const { checkBody } = require("../modules/checkBody");
 // const bcrypt = require("bcrypt");
 
 router.post("/", (req, res) => {
-    User.findOne({ token: req.body.token }).then(data => {
-        console.log(data)
-        if (data) {
-            const newTweet = new Tweet({
-                content: req.body.content,
-                user: data._id
-            })
-            newTweet.save()
-          res.json({ result: true, newTweet });
-        } else {
-          res.json({ result: false, error: 'User not found' });
-        }
-
+  User.findOne({ token: req.body.token }).then((data) => {
+    console.log(data);
+    if (data) {
+      const newTweet = new Tweet({
+        content: req.body.content,
+        user: data._id,
       });
-    // recup l'orbject du user grâce au token
-    // Utiliser les informations (_id) de l'user pour mettre dans tweet
+      newTweet.save();
+      res.json({ result: true, newTweet: newTweet });
+    } else {
+      res.json({ result: false, error: "User not found" });
+    }
+  });
+  // recup l'orbject du user grâce au token
+  // Utiliser les informations (_id) de l'user pour mettre dans tweet
 
+  //   if (!checkBody(req.body, ["firstname", "username", "nblike"])) {
+  //     res.json({ result: true });
+  //     return;
+  //     }
+  //     const newTweet = new Tweet({
+  //         firstname: req.body.firstname,
+  //         username: req.body.username,
+  //         content: req.body.content,
+  //         nblike: 0,
+  //         })
+  //             newTweet.save().then((newDoc) => {
+  //                 res.json({ result: true, token: newDoc.token });
 
-//   if (!checkBody(req.body, ["firstname", "username", "nblike"])) {
-//     res.json({ result: true });
-//     return;
-//     }
-//     const newTweet = new Tweet({
-//         firstname: req.body.firstname,
-//         username: req.body.username,
-//         content: req.body.content,
-//         nblike: 0,
-//         })
-//             newTweet.save().then((newDoc) => {
-//                 res.json({ result: true, token: newDoc.token });
-        
-//             });
-        });
-        
-
+  //             });
+});
 
 module.exports = router;
